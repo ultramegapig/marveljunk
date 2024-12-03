@@ -1,0 +1,21 @@
+@import './variables';
+
+.footer {
+  margin-top: auto; /* Позволяет футеру смещаться вниз */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: $footer-color;
+  padding: 10pt 20pt;
+  border-top: 2px solid $secondary-color;
+}
+
+.container p {
+  color: white;
+}
+
+.container img {
+  width: 5pc;
+}

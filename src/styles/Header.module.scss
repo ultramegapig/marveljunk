@@ -1,0 +1,35 @@
+@import './variables';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: $primary-color;
+  padding: 10pt 20pt;
+  align-items: center;
+}
+
+.container img {
+  height: 3pc;
+}
+
+
+.buttons .link {
+  color: $button-color;
+  border: none;
+  background-color: $primary-color;
+  font-family: $font-oswald;
+  font-size: $header-font-size;
+  padding: 10pt;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    color: $button-hover-text-color;
+    text-decoration: underline;
+  }
+}
+
+.buttons .active {
+  color: $active-button-color;
+}
