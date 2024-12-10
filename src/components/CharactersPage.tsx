@@ -1,35 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import styles from "../styles/ContentPage.module.scss";
-import { characters } from "../data"; // Импортируем данные из data.ts
 import { textVariables } from "../textVariables";
+import charactersStore from "../stores/charactersStore"; 
+import { observer } from "mobx-react-lite";
+import debounce from 'lodash.debounce'; 
 
-const CharactersPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate(); // Хук для навигации
+const CharactersPage: React.FC = observer(() => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    charactersStore.fetchCharacters();
+  }, []);
 
   const handleCardClick = (id: number) => {
-    navigate(`/characters/${id}`); // Перенаправление на страницу персонажа
+    navigate(`/characters/${id}`); 
   };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    charactersStore.setSearchTerm(e.target.value);
+    debouncedFetchCharacters(e.target.value); 
+  };
+
+  const debouncedFetchCharacters = debounce((searchTerm: string) => {
+    charactersStore.fetchCharacters(5, searchTerm); 
+  }, 3000);
 
   const handleSearchButtonClick = () => {
     console.log("Search button clicked");
   };
 
+  if (charactersStore.loading) {
+    return <div>Загрузка...</div>;
+  }
+
+  if (charactersStore.error) {
+    return <div>{charactersStore.error}</div>;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>{textVariables.charactersPageTitle}</h1>
-        <h3 className={styles.cardCount}>({characters.length})</h3>
+        <h3 className={styles.cardCount}>({charactersStore.filteredCharacters.length})</h3>
       </div>
 
       <div className={styles.searchContainer}>
         <input
           type="text"
           placeholder={textVariables.characterPlaceholder}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={charactersStore.searchTerm}
+          onChange={handleSearchChange}
           className={styles.input}
         />
         <button onClick={handleSearchButtonClick} className={styles.button}>
@@ -40,22 +62,18 @@ const CharactersPage: React.FC = () => {
       <hr className={styles.divider} />
 
       <div className={styles.cardList}>
-        {characters
-          .filter((character) =>
-            character.name.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((character) => (
-            <Card
-              key={character.id}
-              imageUrl={character.imageUrl}
-              title={character.name} // Используем name из данных
-              description={character.description}
-              onClick={() => handleCardClick(character.id)} // Обработчик клика
-            />
-          ))}
+        {charactersStore.filteredCharacters.map((character) => (
+          <Card
+            key={character.id}
+            imageUrl={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+            title={character.name}
+            description={character.description}
+            onClick={() => handleCardClick(character.id)}
+          />
+        ))}
       </div>
     </div>
   );
-};
+});
 
 export default CharactersPage;
