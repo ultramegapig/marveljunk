@@ -17,7 +17,7 @@ const fetchData = async (endpoint: string, limit: number, filterValue: string = 
   }
 };
 
-export const getCharacters = async (limit: number = 5, nameStartsWith: string = ""): Promise<Character[]> => {
+export const getCharacters = async (limit: number = 24, nameStartsWith: string = ""): Promise<Character[]> => {
   return await fetchData('/characters', limit, nameStartsWith, "nameStartsWith");
 };
 
@@ -26,12 +26,12 @@ export const getCharacterDetails = async (characterId: number): Promise<Characte
     const response = await instance.get(`/characters/${characterId}`);
     return response.data.data.results[0];
   } catch (error) {
-    toast.error("Ошибка при загрузке данных о персонаже");
-    throw new Error("Ошибка при загрузке данных о персонаже");
+    toast.error("Ошибка загрузки данных о персонаже");
+    throw new Error("Ошибка загрузки данных о персонаже");
   }
 };
 
-export const getComics = async (limit: number = 5, titleStartsWith: string = ""): Promise<Comic[]> => {
+export const getComics = async (limit: number = 24, titleStartsWith: string = ""): Promise<Comic[]> => {
   return await fetchData('/comics', limit, titleStartsWith, "titleStartsWith");
 };
 

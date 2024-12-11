@@ -1,18 +1,73 @@
 @import './variables';
 
+.container{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 
+}
 .info {
     display: flex;
-    padding: 20px;
+    flex-direction: row;
+    padding: 20pt;
+    flex-direction: row;
 }
-
-.tide {
-
-}
-
 
 .container img {
-    width: 100%;
-    max-height: 320pt;
+    max-height: 350pt;
     object-fit: cover;
+    
 }
+
+.title{
+    max-width: 50dvb;
+    margin-right: 32dvb;
+
+}
+
+.title h1{
+    font-weight: $bold;
+    font-family: $font-oswald;
+    margin-right: 5pt;
+    font-size: 30pt;
+}
+
+.title p{
+    font-weight: $regular;
+    font-family: $font-open-sans;
+    margin-right: 5pt;
+    font-size: 16pt;    
+}
+
+.list{
+
+}
+
+.list h2{
+    font-weight: $bold;
+    font-family: $font-oswald;
+    margin-right: 5pt;
+    font-size: 24pt;
+}
+
+.list ul{
+    display: flex;
+    flex-direction: column ;
+    font-weight: $regular;
+    font-family: $font-open-sans;
+    margin-right: 5pt;
+    font-size: 16pt; 
+    gap: 8pt;   
+}
+
+.loading{
+    display: flex;
+    flex: 1;
+    
+    justify-content: center;
+    padding: 24pt 64pt;
+    font-weight: $bold;
+      font-family: $font-oswald;
+      margin-right: 5pt;
+      font-size: 48pt;
+  }

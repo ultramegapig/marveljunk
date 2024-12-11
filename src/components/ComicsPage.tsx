@@ -4,7 +4,7 @@ import Card from "./Card";
 import styles from "../styles/ContentPage.module.scss";
 import { textVariables } from "../textVariables";
 import { observer } from "mobx-react-lite";
-import comicStore from "../stores/comicStore"; 
+import comicStore from "../stores/comicStore.ts"; 
 import debounce from 'lodash.debounce';
 
 const ComicsPage: React.FC = observer(() => {
@@ -32,7 +32,7 @@ const ComicsPage: React.FC = observer(() => {
   }, 3000);
   
   if (comicStore.loading) {
-    return <div>Загрузка...</div>;
+    return <div className={styles.loading}>Загрузка...</div>;
   }
 
   if (comicStore.error) {

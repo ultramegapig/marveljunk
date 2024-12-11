@@ -30,10 +30,9 @@ const CharacterDetails: React.FC = () => {
           setLoading(false);
         });
     }
-  }, [id]); // Убираем error из зависимостей, чтобы избежать повторного вызова useEffect
-
+  }, [id]); 
   if (loading) {
-    return <p className={styles.loading}>Loading character details...</p>;
+    return <p className={styles.loading}>Загрузка контента...</p>;
   }
 
   if (error) {
@@ -49,7 +48,6 @@ const CharacterDetails: React.FC = () => {
       <img
         src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
         alt={character.name}
-        className={styles.image}
       />
       <div className={styles.info}>
         <div className={styles.title}>
@@ -57,11 +55,11 @@ const CharacterDetails: React.FC = () => {
           <p>{character.description || "No description available."}</p>
         </div>
 
-        <div className={styles.comicsList}>
+        <div className={styles.list}>
           <h2>Comics featuring this character:</h2>
           <ul>
             {character.comics.items.map((comicItem) => {
-              const comicId = comicItem.resourceURI.split("/").pop(); // Получаем ID комикса
+              const comicId = comicItem.resourceURI.split("/").pop(); 
               return (
                 <li key={comicItem.resourceURI}>
                   <a href={`/comics/${comicId}`}>{comicItem.name}</a>

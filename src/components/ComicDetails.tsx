@@ -33,7 +33,7 @@ const ComicDetails: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <p className={styles.loading}>Loading comic details...</p>;
+    return <p className={styles.loading}>Загрузка контента...</p>;
   }
 
   if (error) {
@@ -49,7 +49,6 @@ const ComicDetails: React.FC = () => {
       <img
         src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
         alt={comic.title}
-        className={styles.image}
       />
       <div className={styles.info}>
         <div className={styles.title}>
@@ -57,7 +56,7 @@ const ComicDetails: React.FC = () => {
           <p>{comic.description || "No description available."}</p>
         </div>
 
-        <div className={styles.charactersList}>
+        <div className={styles.list}>
           <h2>Characters in this comic:</h2>
           <ul>
             {comic.characters.items.map((characterItem) => {

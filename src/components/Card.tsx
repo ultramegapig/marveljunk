@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Card.module.scss'; 
+import styles from '../styles/Card.module.scss'; // Подключаем модуль стилей
 
 interface CardProps {
   imageUrl: string;
@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ imageUrl, title, description, onClick }) => {
   return (
-    <div className={styles.container} onClick={onClick}> {/* Поменял класс с 'contanier' на 'container' */}
+    <div className={styles.contanier} onClick={onClick}> {/* Используем класс 'contanier' */}
       <img src={imageUrl} alt={title} className={styles.image} />
       <div className={styles.text}>
         <p className={styles.title}>{title}</p>
